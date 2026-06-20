@@ -72,6 +72,10 @@
                             <label for="registro-password">Contraseña</label>
                             <input type="password" class="form-control" id="registro-password" placeholder="Crea una contraseña segura" required>
                         </div>
+                        <div class="form-group">
+                            <label for="registro-pin">PIN de transferencias (4 dígitos)</label>
+                            <input type="password" class="form-control" id="registro-pin" placeholder="Ej: 1234" maxlength="4" pattern="\d{4}" required>
+                        </div>
                         
                         <button type="submit" id="usuario-nuevo" class="btn btn-primary w-100 mt-2">
                             Registrar Cuenta
