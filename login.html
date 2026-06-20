@@ -8,8 +8,89 @@
     <style src="assets/css/style.css"></style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Alke Wallet</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Inicio<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4 h3">Iniciar Sesión</h1>
+                        
+                        <form id="form-login">
+                            <div class="form-group">
+                                <label for="login-email">Correo electrónico</label>
+                                <input type="email" class="form-control" id="login-email" placeholder="nombre@correo.com" required>
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label for="login-password">Contraseña</label>
+                                <input type="password" class="form-control" id="login-password" placeholder="Ingresa tu clave" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 mb-3">
+                                Ingresar
+                            </button>
+                            
+                            <button type="button" class="btn btn-outline-primary w-100" data-toggle="modal" data-target="#modalRegistro">
+                                Crear cuenta
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Crear Nueva Cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <form id="form-registro">
+                        <div class="form-group">
+                            <label for="registro-email">Correo electrónico</label>
+                            <input type="email" class="form-control" id="registro-email" placeholder="ejemplo@correo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registro-password">Contraseña</label>
+                            <input type="password" class="form-control" id="registro-password" placeholder="Crea una contraseña segura" required>
+                        </div>
+                        
+                        <button type="submit" id="usuario-nuevo" class="btn btn-primary w-100 mt-2">
+                            Registrar Cuenta
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center py-3 mt-5">
+        <small class="text-muted">@AlkeWallet 2026</small>
+    </footer>
   
-    
+
 
 
 
