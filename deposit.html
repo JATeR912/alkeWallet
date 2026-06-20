@@ -8,7 +8,54 @@
     <style src="assets/css/style.css"></style>
 </head>
 <body>
-  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Alke Wallet</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="menu.html">Inicio<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="transactions.html">Movimientos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="index.html">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h2>Depositar fondos</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form id="form-deposito">
+                            <div class="mb-3">
+                                <label for="monto-deposito" class="form-label">Monto a depositar</label>
+                                <input type="number" class="form-control" id="monto-deposito" placeholder="Ej: 5000" min="1" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-warning w-100">
+                                Realizar depósito
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <a href="menu.html" class="btn btn-link">← Volver al Menú Principal</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light text-center py-3 mt-4">
+        <small class="text-muted">@AlkeWallet 2026</small>
+    </footer>
     
 
 
