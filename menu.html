@@ -8,7 +8,115 @@
     <style src="assets/css/style.css"></style>
 </head>
 <body>
-  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Alke Wallet</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="menu.html">Inicio<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="transactions.html">Movimientos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="index.html">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="container">
+        <h1 id="user" class="text-center">Bienvenido</h1>
+    </section>
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Saldo disponible:</h2>
+                        <p id="saldo" class="text-center"></p>
+                        
+                        <div class="row text-center">
+                            <div class="col-md-4 col-12">
+                                <button id="btn-movimientos" class="btn btn-primary w-100">
+                                    Ver últimos movimientos
+                                </button>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <a href="sendmoney.html" class="btn btn-success w-100">
+                                    Transferir dinero
+                                </a>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <a href="deposit.html" class="btn btn-warning w-100">
+                                    Depositar fondos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <div id="contenedor-tabla" class="card d-none">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Operación</th>
+                                    <th>Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="movimientos"></tbody>
+                        </table>
+                        <div class="text-end">
+                            <a href="transactions.html" class="btn btn-link">Ver todo el historial →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="beneficios" class="container">
+        <h2 class="text-center">Beneficios</h2>
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Descuentos</h5>
+                        <p class="card-text">Obtén descuentos en tus compras.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Acumula puntos</h5>
+                        <p class="card-text">Acumula puntos por tus compras.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cashback</h5>
+                        <p class="card-text">Te devolvemos un porcentaje del dinero que gastas al realizar compras en comercios asociados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light text-center py-3 mt-4">
+        <small class="text-muted">@AlkeWallet 2026</small>
+    </footer>
     
 
 
