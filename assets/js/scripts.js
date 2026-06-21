@@ -50,13 +50,11 @@ const AuthModule = {
 };
 
 $(document).ready(function() {
-    
-    // --- TU TRUCO DIRECTO Y EFECTIVO ---
-    // Obligamos a que los campos de login nazcan vacíos siempre
+
+//Login y registro
     $("#login-email").val("");
     $("#login-password").val("");
     
-    // De aquí hacia abajo tu código se queda exactamente igual
     if ($("#form-login").length > 0) {
         
         $("#form-registro").on("submit", function(event) {
@@ -89,8 +87,45 @@ $(document).ready(function() {
         });
     }
 
-    $('.nav-link:contains("Cerrar sesión")').on("click", function(event) {
+//Cerrar sesión
+    $('.btn-cerrar-sesion').on("click", function(event) {
         event.preventDefault();
         AuthModule.cerrarSesion();
     });
+
+//Menú principal
+    if ($("#saldo").length > 0) {
+        const usuarioConectado = localStorage.getItem("usuarioActual");
+
+        if (usuarioConectado) {
+            const nombreUsuario = usuarioConectado.split("@")[0];
+            $("#user").text("Bienvenido, " + nombreUsuario.charAt(0).toUpperCase() + nombreUsuario.slice(1));
+            
+            let saldoActual = localStorage.getItem(`saldo_${usuarioConectado}`);
+            if (saldoActual === null) {
+                saldoActual = "100000"; 
+                localStorage.setItem(`saldo_${usuarioConectado}`, saldoActual);
+            }
+            
+            $("#saldo").text("$" + parseInt(saldoActual).toLocaleString("es-CL"));
+        } else {
+            window.location.href = "index.html";
+            return;
+        }
+
+        $("#btn-movimientos").on("click", function() {
+            const contenedorTabla = $("#contenedor-tabla");
+
+            if (contenedorTabla.hasClass("d-none")) {
+                contenedorTabla.hide().removeClass("d-none");
+                contenedorTabla.slideDown(500);
+                $(this).text("Ocultar movimientos");
+            } else {
+                contenedorTabla.slideUp(500, function() {
+                    contenedorTabla.addClass("d-none");
+                });
+                $(this).text("Ver últimos movimientos");
+            }
+        });
+    }
 });
