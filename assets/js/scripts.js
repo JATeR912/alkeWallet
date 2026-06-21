@@ -97,15 +97,11 @@ $(document).ready(function() {
     if ($("#saldo").length > 0) {
         const usuarioConectado = localStorage.getItem("usuarioActual");
 
-        if (usuarioConectado) {
+        if (usuarioConectado && baseDeDatosUsuarios[usuarioConectado]) {
             const nombreUsuario = usuarioConectado.split("@")[0];
             $("#user").text("Bienvenido, " + nombreUsuario.charAt(0).toUpperCase() + nombreUsuario.slice(1));
             
-            let saldoActual = localStorage.getItem(`saldo_${usuarioConectado}`);
-            if (saldoActual === null) {
-                saldoActual = "100000"; 
-                localStorage.setItem(`saldo_${usuarioConectado}`, saldoActual);
-            }
+            let saldoActual = baseDeDatosUsuarios[usuarioConectado].saldo;
             
             $("#saldo").text("$" + parseInt(saldoActual).toLocaleString("es-CL"));
         } else {
@@ -125,6 +121,54 @@ $(document).ready(function() {
                     contenedorTabla.addClass("d-none");
                 });
                 $(this).text("Ver últimos movimientos");
+            }
+        });
+    }
+
+//Depósito
+    if ($("#form-deposito").length > 0) {
+        const usuarioConectado = localStorage.getItem("usuarioActual");
+        let montoGlobal = 0; // Guardará temporalmente el monto para usarlo dentro del modal
+
+        if (!usuarioConectado || !baseDeDatosUsuarios[usuarioConectado]) {
+            window.location.href = "index.html";
+            return;
+        }
+
+        $("#form-deposito").on("submit", function(event) {
+            event.preventDefault();
+
+            montoGlobal = parseInt($("#monto-deposito").val());
+
+            if (isNaN(montoGlobal) || montoGlobal <= 0) {
+                return;
+            }
+
+            $("#confirmar-correo").text(usuarioConectado);
+            $("#confirmar-monto").text("$" + montoGlobal.toLocaleString("es-CL"));
+            
+            $("#pin-deposito").val("");
+            $("#error-pin-modal").addClass("d-none");
+
+            $("#modalConfirmarDeposito").modal("show");
+        });
+
+        $("#btn-autorizar-deposito").on("click", function() {
+            const pinIngresado = $("#pin-deposito").val().trim();
+            const pinCorrecto = baseDeDatosUsuarios[usuarioConectado].pin;
+
+            if (pinIngresado === pinCorrecto) {
+                baseDeDatosUsuarios[usuarioConectado].saldo += montoGlobal;
+
+                localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
+
+                $("#modalConfirmarDeposito").modal("hide");
+
+                alert(`¡Depósito exitoso! Se han abonado $${montoGlobal.toLocaleString("es-CL")} a tu cuenta.`);
+                window.location.href = "menu.html";
+            } else {
+                $("#error-pin-modal").removeClass("d-none");
+                $("#pin-deposito").val("").focus();
             }
         });
     }
