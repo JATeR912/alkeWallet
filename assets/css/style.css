@@ -4,3 +4,35 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+    background-color: rgb(233, 236 ,239);
+}
+/*---Index---*/
+.jumbotron-bg-gif {
+    background-image: url('../img/money.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 300px; 
+    width: 100%;
+    position: relative;
+}
+.cinta-oscura {
+    background-color: rgba(0, 0, 0, 0.55); 
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+#beneficios {
+  box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.4);
+}
+#beneficios .card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+#beneficios .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+#beneficios .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
