@@ -3,69 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Alke Wallet</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <style src="assets/css/style.css"></style>
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.html">Alke Wallet</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="index.html">Inicio<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#beneficios">Beneficios</a>
                 </li>
-                <li class="nav-item">
-                    <button type="button" class="btn btn-primary">Iniciar sesión</button>
+                <li class="nav-item ml-lg-3">
+                    <a href="login.html" class="btn btn-primary w-100">Iniciar sesión</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container text-center">
-            <h1 class="display-4">Alke Wallet</h1>
-            <p class="lead">Tu billetera virtual.</p>
+    <main class="flex-fill">
+        <div class="jumbotron jumbotron-fluid jumbotron-bg-gif my-5 p-0 d-flex align-items-center">
+            <div class="cinta-oscura py-4">
+                <div class="container text-center text-white">
+                    <h1 class="display-4 font-weight-bold">Alke Wallet</h1>
+                    <p class="lead mb-0 font-weight-bold">Tu billetera virtual.</p>        
+                </div>
+            </div>
         </div>
-    </div>
-    <section id="beneficios" class="container">
-            <h2 class="text-center">Beneficios</h2>
-            <div class="row">
-                <div class="col-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Descuentos</h5>
-                            <p class="card-text">Obtén descuentos en tus compras.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Acumula puntos</h5>
-                            <p class="card-text">Acumula puntos por tus compras.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Cashback</h5>
-                            <p class="card-text">Te devolvemos un porcentaje del dinero que gastas al realizar compras en comercios asociados.</p>
-                        </div>
+        <section id="beneficios" class="w-100 py-5">
+    
+    <div class="container">
+        <h2 class="text-center mb-5 font-weight-bold">Beneficios</h2>
+        
+        <div class="row justify-content-center">
+            
+            <div class="col-12 col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="./assets/img/descuentos.jpg" class="card-img-top" alt="Icono de descuentos">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title font-weight-bold">Descuentos</h5>
+                        <p class="card-text text-muted small">Obtén descuentos exclusivos en tus compras diarias utilizando nuestra aplicación.</p>
+                        <a href="#" class="btn btn-link text-primary mt-auto p-0 text-left">Ver más →</a>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <footer class="bg-light text-center py-3 mt-4">
-            <small class="text-muted">@AlkeWallet 2026</small>
-        </footer>
+            <div class="col-12 col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="./assets/img/puntos.jpg" class="card-img-top" alt="Icono de acumulación de puntos">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title font-weight-bold">Acumula puntos</h5>
+                        <p class="card-text text-muted small">Acumula puntos por tus compras y canjéalos por increíbles premios.</p>
+                        <a href="#" class="btn btn-link text-primary mt-auto p-0 text-left">Ver más →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="./assets/img/cashback.jpg" class="card-img-top" alt="Icono de devolución de dinero">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title font-weight-bold">Cashback</h5>
+                        <p class="card-text text-muted small">Te devolvemos un porcentaje directo del dinero que gastas al realizar compras en comercios asociados.</p>
+                        <a href="#" class="btn btn-link text-primary mt-auto p-0 text-left">Ver más →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div> </div> </section>
+    </main>
+    <footer class="bg-light text-center py-3">
+        <small class="text-muted">@AlkeWallet 2026</small>
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
