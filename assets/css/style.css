@@ -51,3 +51,8 @@ body {
     letter-spacing: -1px;
     line-height: 1;
 }
+/*---Trasferencias---*/
+.agenda-scroll {
+    max-height: 180px;
+    overflow-y: auto;
+}

@@ -2,7 +2,7 @@
 let baseDeDatosUsuarios = JSON.parse(localStorage.getItem("usuariosWallet")) || {
     "prueba@correo.com": {
         contrasena: "1234",
-        pin: "9988",
+        pin: "9876",
         saldo: 50000,
         contactos: [
             { nombre: "Juan Segura", cuenta: "11223344" },
@@ -181,6 +181,145 @@ $(document).ready(function() {
             } else {
                 $("#error-pin-modal").removeClass("d-none");
                 $("#pin-deposito").val("").focus();
+            }
+        });
+    }
+//Transferencias
+if ($("#form-transferencia").length > 0) {
+        const usuarioConectado = localStorage.getItem("usuarioActual");
+        let contactoSeleccionado = null;
+
+        if (!usuarioConectado || !baseDeDatosUsuarios[usuarioConectado]) {
+            window.location.href = "index.html";
+            return;
+        }
+
+        function cargarContactos() {
+            const listaContainer = $("#lista-contactos-agenda");
+            listaContainer.empty();
+
+            const contactos = baseDeDatosUsuarios[usuarioConectado].contactos || [];
+
+            if (contactos.length === 0) {
+                listaContainer.append('<p class="text-center text-muted small py-2 mb-0">Tu agenda está vacía.</p>');
+                return;
+            }
+
+            contactos.forEach(function(contacto, indice) {
+                listaContainer.append(`
+                    <button type="button" class="list-group-item list-group-item-action item-contacto-agenda" data-indice="${indice}">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1 font-weight-bold text-dark">${contacto.nombre}</h6>
+                        </div>
+                        <small class="text-muted">N° Cuenta: ${contacto.cuenta}</small>
+                    </button>
+                `);
+            });
+        }
+
+        cargarContactos();
+
+        $(document).on("click", ".item-contacto-agenda", function() {
+            $(".item-contacto-agenda").removeClass("active bg-success text-white");
+            $(this).addClass("active bg-success text-white");
+
+            const indice = $(this).data("indice");
+            contactoSeleccionado = baseDeDatosUsuarios[usuarioConectado].contactos[indice];
+
+            $("#cuenta-seleccionada").val(contactoSeleccionado.cuenta);
+            
+            $("#buscar-contacto").val(contactoSeleccionado.nombre);
+        });
+
+        $("#buscar-contacto").on("keyup", function() {
+            const valorBusqueda = $(this).val().toLowerCase().trim();
+            
+            $(".item-contacto-agenda").each(function() {
+                const nombreContacto = $(this).find("h6").text().toLowerCase();
+                if (nombreContacto.includes(valorBusqueda)) {
+                    $(this).removeClass("d-none");
+                } else {
+                    $(this).addClass("d-none");
+                }
+            });
+        });
+
+        $("#form-nuevo-contacto").on("submit", function(event) {
+            event.preventDefault();
+
+            const nuevoNombre = $("#nombre-contacto").val().trim();
+            const nuevaCuenta = $("#numero-cuenta-contacto").val().trim();
+
+            baseDeDatosUsuarios[usuarioConectado].contactos.push({
+                nombre: nuevoNombre,
+                cuenta: nuevaCuenta
+            });
+
+            localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
+            cargarContactos();
+
+            $("#form-nuevo-contacto")[0].reset();
+            $("#modalNuevoContacto").modal("hide");
+            alert(`¡${nuevoNombre} agregado con éxito a tu agenda!`);
+        });
+
+        $("#form-transferencia").on("submit", function(event) {
+            event.preventDefault();
+
+            const monto = parseInt($("#monto-transferir").val());
+            const saldoDisponible = baseDeDatosUsuarios[usuarioConectado].saldo;
+
+            if (!contactoSeleccionado) {
+                alert("Por favor, selecciona un destinatario de tu agenda.");
+                return;
+            }
+            if (isNaN(monto) || monto <= 0) {
+                alert("Por favor, ingresa un monto válido superior a $0.");
+                return;
+            }
+            if (monto > saldoDisponible) {
+                alert(`Saldo insuficiente. Tu saldo disponible actual es de $${saldoDisponible.toLocaleString("es-CL")}.`);
+                return;
+            }
+
+            $("#pin-seguridad").val("");
+            $("#error-pin-transferencia").addClass("d-none");
+            $("#modalConfirmarPin").modal("show");
+        });
+
+        $("#form-confirmar-pin").on("submit", function(event) {
+            event.preventDefault();
+
+            const pinIngresado = $("#pin-seguridad").val().trim();
+            const pinCorrecto = baseDeDatosUsuarios[usuarioConectado].pin;
+
+            if (pinIngresado === pinCorrecto) {
+                const monto = parseInt($("#monto-transferir").val());
+
+                baseDeDatosUsuarios[usuarioConectado].saldo -= monto;
+
+                const fechaActual = new Date().toISOString().split('T')[0];
+                
+                if (!baseDeDatosUsuarios[usuarioConectado].historial) {
+                    baseDeDatosUsuarios[usuarioConectado].historial = [];
+                }
+
+                baseDeDatosUsuarios[usuarioConectado].historial.push({
+                    fecha: fechaActual,
+                    operacion: `Transferencia a ${contactoSeleccionado.nombre}`,
+                    monto: monto
+                });
+
+                localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
+
+                $("#modalConfirmarPin").modal("hide");
+                
+                alert(`¡Transferencia exitosa! Has enviado $${monto.toLocaleString("es-CL")} a ${contactoSeleccionado.nombre}.`);
+                
+                window.location.href = "menu.html";
+            } else {
+                $("#error-pin-transferencia").removeClass("d-none");
+                $("#pin-seguridad").val("").focus();
             }
         });
     }
