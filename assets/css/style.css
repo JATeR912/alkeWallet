@@ -7,6 +7,17 @@
 body {
     background-color: rgb(233, 236 ,239);
 }
+.titulo-wallet {
+    font-size: 1.75rem;
+}
+.subtitulo-wallet {
+    font-size: 1.25rem;
+}
+.monto-wallet {
+    font-size: 2.5rem;
+    color: black;
+}
+
 /*---Index---*/
 .jumbotron-bg-gif {
     background-image: url('../img/money.gif');
@@ -42,15 +53,7 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
-/*---Menu principal---*/
-#user {
-    font-size: 1.5rem; 
-}
-#saldo {
-    font-size: 2.5rem;
-    letter-spacing: -1px;
-    line-height: 1;
-}
+
 /*---Trasferencias---*/
 .agenda-scroll {
     max-height: 180px;
