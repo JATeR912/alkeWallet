@@ -3,7 +3,7 @@ let baseDeDatosUsuarios = JSON.parse(localStorage.getItem("usuariosWallet")) || 
     "prueba@correo.com": {
         contrasena: "1234",
         pin: "9876",
-        saldo: 50000,
+        saldo: 60000,
         contactos: [
             { nombre: "Juan Segura", cuenta: "11223344" },
             { nombre: "María Lara", cuenta: "55667788" }
