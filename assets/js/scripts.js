@@ -7,6 +7,9 @@ let baseDeDatosUsuarios = JSON.parse(localStorage.getItem("usuariosWallet")) || 
         contactos: [
             { nombre: "Juan Segura", cuenta: "11223344" },
             { nombre: "María Lara", cuenta: "55667788" }
+        ],
+        historial: [
+            { fecha: "2026-06-20", operacion: "Saldo Inicial", monto: 60000 }
         ]
     }
 };
@@ -25,7 +28,8 @@ const AuthModule = {
             contrasena: password,
             pin: pin,
             saldo: 0,
-            contactos: []
+            contactos: [],
+            historial: []
         };
 
         localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
@@ -128,7 +132,7 @@ $(document).ready(function() {
 //Depósito
     if ($("#form-deposito").length > 0) {
         const usuarioConectado = localStorage.getItem("usuarioActual");
-        let montoGlobal = 0; // Guardará temporalmente el monto para usarlo dentro del modal
+        let montoGlobal = 0;
 
         if (!usuarioConectado || !baseDeDatosUsuarios[usuarioConectado]) {
             window.location.href = "index.html";
@@ -158,18 +162,65 @@ $(document).ready(function() {
             const pinCorrecto = baseDeDatosUsuarios[usuarioConectado].pin;
 
             if (pinIngresado === pinCorrecto) {
-                baseDeDatosUsuarios[usuarioConectado].saldo += montoGlobal;
+            baseDeDatosUsuarios[usuarioConectado].saldo += montoGlobal;
 
-                localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
+            const fechaActual = new Date().toISOString().split('T')[0];
 
-                $("#modalConfirmarDeposito").modal("hide");
+            baseDeDatosUsuarios[usuarioConectado].historial.push({
+                fecha: fechaActual,
+                operacion: "Depósito de fondos",
+                monto: montoGlobal
+            });
 
-                alert(`¡Depósito exitoso! Se han abonado $${montoGlobal.toLocaleString("es-CL")} a tu cuenta.`);
-                window.location.href = "menu.html";
+            localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
+
+            $("#modalConfirmarDeposito").modal("hide");
+            alert(`¡Depósito exitoso! Se han abonado $${montoGlobal.toLocaleString("es-CL")} a tu cuenta.`);
+            window.location.href = "menu.html";
+        
             } else {
                 $("#error-pin-modal").removeClass("d-none");
                 $("#pin-deposito").val("").focus();
             }
         });
+    }
+//Transacciones
+    if ($("#movimientos-completo").length > 0) {
+        const usuarioConectado = localStorage.getItem("usuarioActual");
+
+        if (!usuarioConectado || !baseDeDatosUsuarios[usuarioConectado]) {
+            window.location.href = "index.html";
+            return;
+        }
+
+        const saldoActual = baseDeDatosUsuarios[usuarioConectado].saldo;
+        $("#saldo").text("$" + parseInt(saldoActual).toLocaleString("es-CL"));
+
+        const historial = baseDeDatosUsuarios[usuarioConectado].historial || [];
+        const tbody = $("#movimientos-completo");
+
+        tbody.empty();
+
+        if (historial.length === 0) {
+            tbody.append(`
+                <tr>
+                    <td colspan="3" class="text-center text-muted py-4">No registras movimientos en tu cuenta aún.</td>
+                </tr>
+            `);
+        } else {
+            [...historial].reverse().forEach(function(movimiento) {
+                const esEntrada = movimiento.operacion.includes("Depósito") || movimiento.operacion.includes("Inicial");
+                const claseMonto = esEntrada ? "text-success font-weight-bold" : "text-danger font-weight-bold";
+                const signo = esEntrada ? "+" : "-";
+
+                tbody.append(`
+                    <tr>
+                        <td class="pl-4 text-muted">${movimiento.fecha}</td>
+                        <td class="font-weight-bold text-dark">${movimiento.operacion}</td>
+                        <td class="text-right pr-4 ${claseMonto}">${signo} $${movimiento.monto.toLocaleString("es-CL")}</td>
+                    </tr>
+                `);
+            });
+        }
     }
 });
