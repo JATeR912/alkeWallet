@@ -18,6 +18,14 @@ body {
     color: black;
 }
 
+/*---Index y Beneficios---*/
+#beneficios .card-img-top,
+.imagen-beneficio {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
 /*---Index---*/
 .jumbotron-bg-gif {
     background-image: url('../img/money.gif');
@@ -37,10 +45,6 @@ body {
 }
 #beneficios .beneficios-title {
     font-size: 1.85rem; 
-}
-#beneficios .card-img-top {
-    height: 180px;
-    object-fit: cover;
 }
 #beneficios .card-title {
     font-size: 1.15rem;

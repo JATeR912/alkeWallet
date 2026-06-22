@@ -92,7 +92,7 @@ $(document).ready(function() {
     }
 
 //Cerrar sesión
-    $('.btn-cerrar-sesion').on("click", function(event) {
+    $(document).on("click", '.btn-cerrar-sesion', function(event) {
         event.preventDefault();
         AuthModule.cerrarSesion();
     });
@@ -162,30 +162,31 @@ $(document).ready(function() {
             const pinCorrecto = baseDeDatosUsuarios[usuarioConectado].pin;
 
             if (pinIngresado === pinCorrecto) {
-            baseDeDatosUsuarios[usuarioConectado].saldo += montoGlobal;
+                baseDeDatosUsuarios[usuarioConectado].saldo += montoGlobal;
 
-            const fechaActual = new Date().toISOString().split('T')[0];
+                const fechaActual = new Date().toISOString().split('T')[0];
 
-            baseDeDatosUsuarios[usuarioConectado].historial.push({
-                fecha: fechaActual,
-                operacion: "Depósito de fondos",
-                monto: montoGlobal
-            });
+                baseDeDatosUsuarios[usuarioConectado].historial.push({
+                    fecha: fechaActual,
+                    operacion: "Depósito de fondos",
+                    monto: montoGlobal
+                });
 
-            localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
+                localStorage.setItem("usuariosWallet", JSON.stringify(baseDeDatosUsuarios));
 
-            $("#modalConfirmarDeposito").modal("hide");
-            alert(`¡Depósito exitoso! Se han abonado $${montoGlobal.toLocaleString("es-CL")} a tu cuenta.`);
-            window.location.href = "menu.html";
-        
+                $("#modalConfirmarDeposito").modal("hide");
+                alert(`¡Depósito exitoso! Se han abonado $${montoGlobal.toLocaleString("es-CL")} a tu cuenta.`);
+                window.location.href = "menu.html";
+            
             } else {
                 $("#error-pin-modal").removeClass("d-none");
                 $("#pin-deposito").val("").focus();
             }
         });
     }
+
 //Transferencias
-if ($("#form-transferencia").length > 0) {
+    if ($("#form-transferencia").length > 0) {
         const usuarioConectado = localStorage.getItem("usuarioActual");
         let contactoSeleccionado = null;
 
@@ -323,6 +324,7 @@ if ($("#form-transferencia").length > 0) {
             }
         });
     }
+
 //Transacciones
     if ($("#movimientos-completo").length > 0) {
         const usuarioConectado = localStorage.getItem("usuarioActual");
@@ -360,6 +362,47 @@ if ($("#form-transferencia").length > 0) {
                     </tr>
                 `);
             });
+        }
+    }
+
+//Navbar adaptable para beneficios
+    if ($("#navbar-dinamico").length > 0) {
+        const usuarioConectado = localStorage.getItem("usuarioActual");
+        const navContainer = $("#navbar-dinamico");
+        const btnVolver = $("#btn-volver-dinamico");
+
+        if (usuarioConectado && baseDeDatosUsuarios[usuarioConectado]) {
+            navContainer.append(`
+                <a class="navbar-brand" href="menu.html">Alke Wallet</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="menu.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="sendmoney.html">Transferir</a></li>
+                        <li class="nav-item"><a class="nav-link" href="deposit.html">Depositar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="transactions.html">Movimientos</a></li>
+                        <li class="nav-item"><a class="nav-link text-danger btn-cerrar-sesion" href="#">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            `);
+            btnVolver.attr("href", "menu.html").text("← Volver al Menú Principal");
+
+        } else {
+            navContainer.append(`
+                <a class="navbar-brand" href="index.html">Alke Wallet</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item ml-lg-3"><a href="index.html" class="btn btn-primary w-100">Iniciar sesión</a></li>
+                    </ul>
+                </div>
+            `);
+            btnVolver.attr("href", "index.html");
         }
     }
 });
